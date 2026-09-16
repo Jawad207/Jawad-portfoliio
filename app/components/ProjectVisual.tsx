@@ -1,0 +1,9 @@
+import React from "react";
+type Props={slug:string};
+const nodes:Record<string,{label:string;sub:string}[]>= {
+"evolo-ai":[{label:"React / RN",sub:"Product clients"},{label:"API",sub:"REST + JWT"},{label:"Node / Express",sub:"Application layer"},{label:"MongoDB",sub:"Target data model"}],
+powerhouse:[{label:"React",sub:"Component layer"},{label:"Next.js",sub:"Web application"},{label:"API",sub:"Connected data"},{label:"Responsive UI",sub:"Production experience"}],
+hammer:[{label:"React",sub:"Component layer"},{label:"Next.js",sub:"Web application"},{label:"API",sub:"Connected data"},{label:"UI states",sub:"Loading / data / interaction"}],
+sara:[{label:"React Native",sub:"Mobile application"},{label:"BLE",sub:"Device connection"},{label:"Device modules",sub:"Measurement events"},{label:"Health UI",sub:"Metrics + history"}]};
+const labels:Record<string,string>={"evolo-ai":"PRODUCT ARCHITECTURE",powerhouse:"FRONTEND FLOW",hammer:"FRONTEND FLOW",sara:"DEVICE DATA FLOW"};
+export default function ProjectVisual({slug}:Props){const flow=nodes[slug]??nodes["evolo-ai"];return <div className={`case-visual case-visual-${slug}`}><div className="case-visual-top"><span>{labels[slug]}</span><span>ENGINEERING VIEW</span></div><div className="case-flow">{flow.map((node,index)=><React.Fragment key={node.label}><div className="flow-node"><span className="flow-index">0{index+1}</span><strong>{node.label}</strong><small>{node.sub}</small></div>{index<flow.length-1&&<div className="flow-connector">→</div>}</React.Fragment>)}</div>{slug==="evolo-ai"&&<div className="migration-strip"><span>DATA ARCHITECTURE</span><b>Firebase</b><i>→</i><b>Migration code</b><i>→</i><b>MongoDB</b></div>}{slug==="sara"&&<div className="migration-strip"><span>DEVICE LOOP</span><b>Scan</b><i>→</i><b>Connect</b><i>→</i><b>Measure</b><i>→</i><b>Present</b></div>}</div>}
